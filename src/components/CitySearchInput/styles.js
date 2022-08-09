@@ -8,7 +8,7 @@ export const InputContainer = styled.div`
     align-items: center;
     input {
       width: 300px;
-      padding: 0.7rem 80px 0.7rem 1.3rem;
+      padding: 0.7rem 45px 0.7rem 1.3rem;
       font-size: 1.2rem;
       border: none;
       border-radius: 8px;
@@ -26,6 +26,7 @@ export const InputContainer = styled.div`
     max-height: 300px;
     overflow-y: auto;
     position: absolute;
+    z-index: 1000;
 
     .city-option {
       padding: 0.5rem 1rem;

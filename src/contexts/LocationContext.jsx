@@ -7,6 +7,7 @@ export const LocationContext = createContext({});
 
 export function LocationProvider({ children }) {
   const [weatherData, setWeatherData] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
   const [cityImages, setCityImages] = useState(null);
 
   const fetchWeatherDataFromCoords = async (position) => {
@@ -20,8 +21,19 @@ export function LocationProvider({ children }) {
           // lang: "pt_br",
         },
       });
-      console.log(response);
       setWeatherData(response.data);
+
+      const forecastResponse = await weatherApi.get("forecast", {
+        params: {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+          appid: weatherApiKey,
+          units: "metric",
+          // lang: "pt_br",
+        },
+      });
+      console.log(forecastResponse.data);
+      setForecastData(forecastResponse.data);
       getLocationImages(response.data.name);
     } catch (err) {
       console.log(err);
@@ -83,6 +95,7 @@ export function LocationProvider({ children }) {
     <LocationContext.Provider
       value={{
         weatherData,
+        forecastData,
         setWeatherData,
         cityImages,
         setCityImages,

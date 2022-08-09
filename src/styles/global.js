@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
     min-height: 100vh;
-    background-color: black;
+    background-color: #1f1f1f;
     color: white;
     font-family: 'Inter', sans-serif;
     font-size: 14px;

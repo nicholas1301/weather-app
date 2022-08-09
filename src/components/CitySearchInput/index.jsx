@@ -40,6 +40,7 @@ function CitySearchInput() {
       <div className="sub-container">
         <input
           type="text"
+          placeholder="Search for a city..."
           value={searchTerm}
           onChange={changeHandler}
           onFocus={() => setIsFocusOnInput(true)}
@@ -58,7 +59,10 @@ function CitySearchInput() {
               <div
                 key={idx}
                 className="city-option"
-                onClick={() => fetchWeatherAndImagesFromCityUrl(match.url)}
+                onClick={() => {
+                  setSearchTerm(match.name);
+                  fetchWeatherAndImagesFromCityUrl(match.url);
+                }}
               >
                 {match.name}
               </div>

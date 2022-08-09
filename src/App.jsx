@@ -3,10 +3,13 @@ import { GlobalStyle } from "./styles/global";
 import CitySearchInput from "./components/CitySearchInput";
 import { LocationContext } from "./contexts/LocationContext";
 import { AppContainer } from "./styles/AppContainer";
+import { useWindowDimensions } from "./hooks/useWindowDimension";
+import WeatherInfoCard from "./components/WeatherInfoCard";
 
 function App() {
-  const { weatherData, cityImages, fetchWeatherDataFromCoords } =
+  const { weatherData, forecastData, cityImages, fetchWeatherDataFromCoords } =
     useContext(LocationContext);
+  const { height, width } = useWindowDimensions();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -17,27 +20,18 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <AppContainer>
+      <AppContainer
+        bgUrl={
+          cityImages ? (width < 768 ? cityImages.mobile : cityImages.web) : null
+        }
+      >
         <CitySearchInput />
+
+        {weatherData && <h3 className="cityName">{weatherData.name}</h3>}
+
+        {weatherData && <WeatherInfoCard weatherData={weatherData} />}
         {weatherData && <pre>{JSON.stringify(weatherData, null, 4)}</pre>}
-        {weatherData && (
-          <img
-            src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
-            alt={weatherData.name}
-          />
-        )}
-        {cityImages && (
-          <img
-            src={cityImages.mobile}
-            alt={weatherData ? weatherData.name : "city image"}
-          />
-        )}
-        {cityImages && (
-          <img
-            src={cityImages.web}
-            alt={weatherData ? weatherData.name : "city image"}
-          />
-        )}
+        {forecastData && <pre>{JSON.stringify(forecastData, null, 4)}</pre>}
       </AppContainer>
     </>
   );
