@@ -1,41 +1,16 @@
-import { useState } from "react";
-import axios from "axios";
+import { useContext, useState } from "react";
 import { teleportApi } from "../../services/teleportApi";
-import { weatherApi, weatherApiKey } from "../../services/weatherApi";
 import { InputContainer } from "./styles";
+import { MoonLoader } from "react-spinners";
+import { LocationContext } from "../../contexts/LocationContext";
 
-function CitySearchInput({ setWeatherData, setCityImages }) {
+function CitySearchInput() {
+  const { fetchWeatherAndImagesFromCityUrl } = useContext(LocationContext);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchMatches, setSearchMatches] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  const findCityFromSearchTerm = async () => {
-    try {
-      const response = await teleportApi.get(`/cities/?search=${searchTerm}`);
-      const cityUrl =
-        response.data._embedded["city:search-results"][0]._links["city:item"]
-          .href;
-      const cityResponse = await axios.get(cityUrl);
-      const { latitude, longitude } = cityResponse.data.location.latlon;
-      const imagesRequestUrl =
-        cityResponse.data._links["city:urban_area"].href + "images";
-
-      const weatherResponse = await weatherApi.get("weather", {
-        params: {
-          lat: latitude,
-          lon: longitude,
-          appid: weatherApiKey,
-          units: "metric",
-        },
-      });
-      setWeatherData(weatherResponse.data);
-
-      const imagesResponse = await axios.get(imagesRequestUrl);
-      setCityImages(imagesResponse.data.photos[0].image);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [isFocusOnInput, setIsFocusOnInput] = useState(false);
 
   const changeHandler = async (e) => {
     setSearchTerm(e.target.value);
@@ -43,9 +18,16 @@ function CitySearchInput({ setWeatherData, setCityImages }) {
     try {
       const response = await teleportApi.get(`/cities/?search=${searchTerm}`);
       const matches = response.data._embedded["city:search-results"];
-      const matchesFullName = matches.map((match) => match.matching_full_name);
-      console.log(matchesFullName);
-      setSearchMatches(matchesFullName);
+      const matchesObjs = matches.map((match) => {
+        return {
+          name: match.matching_full_name,
+          url: match._links["city:item"].href,
+        };
+      });
+      console.log(matchesObjs);
+      // array of object of type
+      // name: full_name, url:
+      setSearchMatches(matchesObjs);
       setIsLoading(false);
     } catch (err) {
       console.log(err);
@@ -54,16 +36,36 @@ function CitySearchInput({ setWeatherData, setCityImages }) {
   };
 
   return (
-    <>
-      <InputContainer>
-        <input type="text" value={searchTerm} onChange={changeHandler} />
-        <button onClick={findCityFromSearchTerm}>Find city</button>
-      </InputContainer>
-      {isLoading && <p>Loading...</p>}
-      {!isLoading &&
-        searchMatches.length > 0 &&
-        searchMatches.map((match) => <p>{match}</p>)}
-    </>
+    <InputContainer>
+      <div className="sub-container">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={changeHandler}
+          onFocus={() => setIsFocusOnInput(true)}
+          onBlur={() => setTimeout(() => setIsFocusOnInput(false), 100)}
+        />
+
+        <div className="spinner" style={{ opacity: isLoading ? 1 : 0 }}>
+          <MoonLoader loading={true} size="20px" />
+        </div>
+      </div>
+      {isFocusOnInput && searchTerm.length > 0 ? (
+        <div className="dropdown-menu">
+          {!isLoading &&
+            searchMatches.length > 0 &&
+            searchMatches.map((match, idx) => (
+              <div
+                key={idx}
+                className="city-option"
+                onClick={() => fetchWeatherAndImagesFromCityUrl(match.url)}
+              >
+                {match.name}
+              </div>
+            ))}
+        </div>
+      ) : null}
+    </InputContainer>
   );
 }
 

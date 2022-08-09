@@ -11,6 +11,8 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     background-color: black;
     color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
   }
 
   body {

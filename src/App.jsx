@@ -1,62 +1,24 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { weatherApi, weatherApiKey } from "./services/weatherApi";
-import { teleportApi } from "./services/teleportApi";
+import { useEffect, useContext } from "react";
 import { GlobalStyle } from "./styles/global";
 import CitySearchInput from "./components/CitySearchInput";
+import { LocationContext } from "./contexts/LocationContext";
+import { AppContainer } from "./styles/AppContainer";
 
 function App() {
-  const [weatherData, setWeatherData] = useState(null);
-  const [cityImages, setCityImages] = useState(null);
+  const { weatherData, cityImages, fetchWeatherDataFromCoords } =
+    useContext(LocationContext);
 
   useEffect(() => {
-    const setPosition = async (position) => {
-      try {
-        const response = await weatherApi.get("weather", {
-          params: {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-            appid: weatherApiKey,
-            units: "metric",
-            // lang: "pt_br",
-          },
-        });
-        setWeatherData(response.data);
-        getLocationImages(response.data.name);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(setPosition);
+      navigator.geolocation.getCurrentPosition(fetchWeatherDataFromCoords);
     }
   }, []);
-
-  const getLocationImages = async (cityName) => {
-    try {
-      const response = await teleportApi.get(`/cities/?search=${cityName}`);
-      const cityUrl =
-        response.data._embedded["city:search-results"][0]._links["city:item"]
-          .href;
-      const cityInfoResponse = await axios.get(cityUrl);
-      const imagesRequestUrl =
-        cityInfoResponse.data._links["city:urban_area"].href + "images";
-      const imagesResponse = await axios.get(imagesRequestUrl);
-      setCityImages(imagesResponse.data.photos[0].image);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <>
       <GlobalStyle />
-      <div className="App">
-        <CitySearchInput
-          setWeatherData={setWeatherData}
-          setCityImages={setCityImages}
-        />
+      <AppContainer>
+        <CitySearchInput />
         {weatherData && <pre>{JSON.stringify(weatherData, null, 4)}</pre>}
         {weatherData && (
           <img
@@ -76,7 +38,7 @@ function App() {
             alt={weatherData ? weatherData.name : "city image"}
           />
         )}
-      </div>
+      </AppContainer>
     </>
   );
 }
