@@ -32,8 +32,7 @@ export function LocationProvider({ children }) {
           // lang: "pt_br",
         },
       });
-      console.log(forecastResponse.data);
-      setForecastData(forecastResponse.data);
+      setForecastData(forecastResponse.data.list);
       getLocationImages(response.data.name);
     } catch (err) {
       console.log(err);
@@ -77,6 +76,17 @@ export function LocationProvider({ children }) {
         },
       });
       setWeatherData(weatherResponse.data);
+
+      const forecastResponse = await weatherApi.get("forecast", {
+        params: {
+          lat: latitude,
+          lon: longitude,
+          appid: weatherApiKey,
+          units: "metric",
+          // lang: "pt_br",
+        },
+      });
+      setForecastData(forecastResponse.data.list);
 
       if (cityInfoResponse.data._links["city:urban_area"]) {
         const imagesRequestUrl =

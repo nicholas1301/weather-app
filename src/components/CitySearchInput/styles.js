@@ -2,12 +2,14 @@ import styled from "styled-components";
 
 export const InputContainer = styled.div`
   margin: 20px;
+  width: 90%;
+  max-width: 400px;
 
   .sub-container {
     display: flex;
     align-items: center;
     input {
-      width: 300px;
+      width: 90%;
       padding: 0.7rem 45px 0.7rem 1.3rem;
       font-size: 1.2rem;
       border: none;
@@ -22,7 +24,9 @@ export const InputContainer = styled.div`
   .dropdown-menu {
     background-color: white;
     color: black;
-    width: 300px;
+    width: 80%;
+    max-width: 360px;
+
     max-height: 300px;
     overflow-y: auto;
     position: absolute;
@@ -31,6 +35,7 @@ export const InputContainer = styled.div`
     .city-option {
       padding: 0.5rem 1rem;
       cursor: pointer;
+      border-radius: 5px;
 
       &:hover {
         background-color: #ddd;
