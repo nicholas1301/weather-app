@@ -18,4 +18,10 @@ export const GlobalStyle = createGlobalStyle`
   body {
     height: 100%;
   }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;

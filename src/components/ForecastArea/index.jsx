@@ -1,24 +1,31 @@
 import { Container } from "./styles";
 import ForecastCard from "../ForecastCard";
+import { useRef } from "react";
 
 function ForecastArea({ forecastData }) {
-  const time = new Date().getTime();
-  console.log(time);
+  const listRef = useRef();
+  const time = Date.now();
   const currentTempIndex = forecastData.findIndex(
     (forecast) => forecast.dt * 1000 > time
   );
-  console.log(currentTempIndex);
+  const test = () => {
+    const MAX_SCROLLLEFT =
+      listRef.current.scrollWidth - listRef.current.clientWidth;
+    listRef.current.scrollLeft = currentTempIndex * MAX_SCROLLLEFT;
+  };
 
   return (
-    <Container>
-      {forecastData.map((el, idx) => (
-        <ForecastCard
-          key={idx}
-          forecast={el}
-          isCurrent={currentTempIndex === idx}
-        />
-      ))}
-    </Container>
+    <>
+      <Container ref={listRef}>
+        {forecastData.map((el, idx) => (
+          <ForecastCard
+            key={idx}
+            forecast={el}
+            isCurrent={currentTempIndex === idx}
+          />
+        ))}
+      </Container>
+    </>
   );
 }
 

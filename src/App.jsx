@@ -1,11 +1,11 @@
 import { useEffect, useContext } from "react";
 import { GlobalStyle } from "./styles/global";
-import CitySearchInput from "./components/CitySearchInput";
 import { LocationContext } from "./contexts/LocationContext";
 import { AppContainer } from "./styles/AppContainer";
 import { useWindowDimensions } from "./hooks/useWindowDimension";
 import WeatherInfoCard from "./components/WeatherInfoCard";
 import ForecastArea from "./components/ForecastArea";
+import AppHeader from "./components/AppHeader";
 
 function App() {
   const { weatherData, forecastData, cityImages, fetchWeatherDataFromCoords } =
@@ -22,13 +22,9 @@ function App() {
     <>
       <GlobalStyle />
       <AppContainer
-        bgUrl={
-          cityImages ? (width < 768 ? cityImages.mobile : cityImages.web) : null
-        }
+        bgUrl={cityImages && width < 768 ? cityImages.mobile : null}
       >
-        <CitySearchInput />
-
-        {weatherData && <h3 className="cityName">{weatherData.name}</h3>}
+        <AppHeader bgUrl={cityImages && width >= 768 ? cityImages.web : null} />
 
         {weatherData && <WeatherInfoCard weatherData={weatherData} />}
         {forecastData && <ForecastArea forecastData={forecastData} />}

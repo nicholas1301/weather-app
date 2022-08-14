@@ -4,20 +4,15 @@ export const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: ${({ bgUrl }) => (bgUrl ? `url(${bgUrl})` : "#224")};
+  background: ${({ bgUrl }) => (bgUrl ? `url(${bgUrl})` : "transparent")};
   background-repeat: no-repeat;
   background-size: contain;
+  width: 100%;
 
-  .cityName {
-    font-size: 40px;
-    font-weight: 600;
-    padding: 1rem;
-    border-radius: 10px;
-    color: #fff;
-    background: rgba(56, 56, 56, 0.5);
-    backdrop-filter: blur(1px);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
+  @media screen and (min-width: 768px) {
+    border: 5px solid #333;
+    border-radius: 20px;
+    margin: 25px 0;
+    max-width: 80%;
   }
 `;

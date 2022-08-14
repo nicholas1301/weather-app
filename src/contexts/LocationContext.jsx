@@ -12,7 +12,7 @@ export function LocationProvider({ children }) {
 
   const fetchWeatherDataFromCoords = async (position) => {
     try {
-      const response = await weatherApi.get("weather", {
+      const weatherPromise = weatherApi.get("weather", {
         params: {
           lat: position.coords.latitude,
           lon: position.coords.longitude,
@@ -21,9 +21,8 @@ export function LocationProvider({ children }) {
           // lang: "pt_br",
         },
       });
-      setWeatherData(response.data);
 
-      const forecastResponse = await weatherApi.get("forecast", {
+      const forecastPromise = weatherApi.get("forecast", {
         params: {
           lat: position.coords.latitude,
           lon: position.coords.longitude,
@@ -32,8 +31,13 @@ export function LocationProvider({ children }) {
           // lang: "pt_br",
         },
       });
+      const [weatherResponse, forecastResponse] = await Promise.all([
+        weatherPromise,
+        forecastPromise,
+      ]);
+      setWeatherData(weatherResponse.data);
       setForecastData(forecastResponse.data.list);
-      getLocationImages(response.data.name);
+      getLocationImages(weatherResponse.data.name);
     } catch (err) {
       console.log(err);
     }
@@ -67,7 +71,7 @@ export function LocationProvider({ children }) {
     try {
       const cityInfoResponse = await axios.get(cityUrl);
       const { latitude, longitude } = cityInfoResponse.data.location.latlon;
-      const weatherResponse = await weatherApi.get("weather", {
+      const weatherPromise = weatherApi.get("weather", {
         params: {
           lat: latitude,
           lon: longitude,
@@ -75,9 +79,8 @@ export function LocationProvider({ children }) {
           units: "metric",
         },
       });
-      setWeatherData(weatherResponse.data);
 
-      const forecastResponse = await weatherApi.get("forecast", {
+      const forecastPromise = weatherApi.get("forecast", {
         params: {
           lat: latitude,
           lon: longitude,
@@ -86,12 +89,18 @@ export function LocationProvider({ children }) {
           // lang: "pt_br",
         },
       });
+      const [weatherResponse, forecastResponse] = await Promise.all([
+        weatherPromise,
+        forecastPromise,
+      ]);
+      setWeatherData(weatherResponse.data);
       setForecastData(forecastResponse.data.list);
 
       if (cityInfoResponse.data._links["city:urban_area"]) {
         const imagesRequestUrl =
           cityInfoResponse.data._links["city:urban_area"].href + "images";
         const imagesResponse = await axios.get(imagesRequestUrl);
+        console.log(imagesResponse);
         setCityImages(imagesResponse.data.photos[0].image);
       } else {
         setCityImages(null);

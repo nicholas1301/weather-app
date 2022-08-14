@@ -24,7 +24,6 @@ function CitySearchInput() {
           url: match._links["city:item"].href,
         };
       });
-      console.log(matchesObjs);
       // array of object of type
       // name: full_name, url:
       setSearchMatches(matchesObjs);

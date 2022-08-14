@@ -7,6 +7,7 @@ export const Card = styled.li`
   align-items: center;
   min-width: 150px;
   margin-bottom: 15px;
+  padding: 10px 0;
   border-radius: 10px;
   background: rgba(56, 56, 56, 0.5);
   backdrop-filter: blur(1px);
@@ -14,7 +15,7 @@ export const Card = styled.li`
   ${({ isCurrent }) =>
     isCurrent &&
     css`
-      background: rgba(56, 56, 56, 0.5);
+      background: #555;
       backdrop-filter: blur(1px);
     `}
 
