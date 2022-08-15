@@ -1,4 +1,22 @@
 import styled from "styled-components";
+import { keyframes } from "styled-components";
+
+const comeInRight = keyframes`
+  0% {
+    opacity: 0;
+    right: -50px;
+  }
+
+  50% {
+    opacity: 0;
+    left: 50px;
+  }
+
+  100% {
+    opacity: 1;
+    left: 0;
+  }
+`;
 
 export const Container = styled.div`
   background: rgba(56, 56, 56, 0.5);
@@ -10,6 +28,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  animation: ${comeInRight} 2s forwards;
 
   h2 {
     font-size: 40px;

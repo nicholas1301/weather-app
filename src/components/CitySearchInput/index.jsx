@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { teleportApi } from "../../services/teleportApi";
 import { InputContainer } from "./styles";
-import { MoonLoader } from "react-spinners";
+import { PulseLoader } from "react-spinners";
 import { LocationContext } from "../../contexts/LocationContext";
 
 function CitySearchInput() {
@@ -47,7 +47,7 @@ function CitySearchInput() {
         />
 
         <div className="spinner" style={{ opacity: isLoading ? 1 : 0 }}>
-          <MoonLoader loading={true} size="20px" />
+          <PulseLoader loading={true} size="8px" color="#222" />
         </div>
       </div>
       {isFocusOnInput && searchTerm.length > 0 ? (

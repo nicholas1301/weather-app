@@ -4,7 +4,7 @@ export const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: ${({ bgUrl }) => (bgUrl ? `url(${bgUrl})` : "transparent")};
+  background: ${({ bgUrl }) => (bgUrl ? `url(${bgUrl})` : "#003")};
   background-repeat: no-repeat;
   background-size: contain;
   width: 100%;

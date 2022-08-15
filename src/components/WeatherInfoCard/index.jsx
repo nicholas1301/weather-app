@@ -9,8 +9,8 @@ function WeatherInfoCard({ weatherData }) {
       />
       <h2>{Math.round(weatherData.main.temp)}°C</h2>
       <div className="min-max">
-        <span>Min: {Math.round(weatherData.main.temp_min)}</span> -
-        <span> Max: {Math.round(weatherData.main.temp_max)}</span>
+        <span>Min: {Math.round(weatherData.main.temp_min)}°C</span> -
+        <span> Max: {Math.round(weatherData.main.temp_max)}°C</span>
       </div>
     </Container>
   );

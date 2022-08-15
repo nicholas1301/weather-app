@@ -9,8 +9,10 @@ export function LocationProvider({ children }) {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState(null);
   const [cityImages, setCityImages] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchWeatherDataFromCoords = async (position) => {
+    setLoading(true);
     try {
       const weatherPromise = weatherApi.get("weather", {
         params: {
@@ -40,11 +42,15 @@ export function LocationProvider({ children }) {
       getLocationImages(weatherResponse.data.name);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   const getLocationImages = async (cityName) => {
+    setLoading(true);
     try {
+      setCityImages(null);
       const searchResponse = await teleportApi.get(
         `/cities/?search=${cityName}`
       );
@@ -64,11 +70,14 @@ export function LocationProvider({ children }) {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   const fetchWeatherAndImagesFromCityUrl = async (cityUrl) => {
     try {
+      setLoading(true);
       const cityInfoResponse = await axios.get(cityUrl);
       const { latitude, longitude } = cityInfoResponse.data.location.latlon;
       const weatherPromise = weatherApi.get("weather", {
@@ -96,6 +105,8 @@ export function LocationProvider({ children }) {
       setWeatherData(weatherResponse.data);
       setForecastData(forecastResponse.data.list);
 
+      setCityImages(null);
+
       if (cityInfoResponse.data._links["city:urban_area"]) {
         const imagesRequestUrl =
           cityInfoResponse.data._links["city:urban_area"].href + "images";
@@ -107,12 +118,16 @@ export function LocationProvider({ children }) {
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <LocationContext.Provider
       value={{
+        loading,
+        setLoading,
         weatherData,
         forecastData,
         setWeatherData,

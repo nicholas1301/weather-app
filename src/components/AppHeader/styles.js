@@ -1,13 +1,55 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+  } 
+
+  50% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+  }
+`;
+
+const comeInLeft = keyframes`
+  0% {
+    opacity: 0;
+    left: -50px;
+  }
+
+  100% {
+    opacity: 1;
+    left: 0;
+  }
+`;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 200px;
   background: ${({ bgUrl }) => (bgUrl ? `url(${bgUrl})` : "transparent")};
   background-repeat: no-repeat;
   background-size: cover;
+
+  .background-overlay {
+    background: #003;
+    border-radius: 15px 15px 0 0;
+    width: 79.3%;
+    height: 200px;
+    z-index: 100;
+    position: absolute;
+    animation: ${fadeOut} 1.5s forwards;
+    /* opacity: 1;
+    transition: opacity 1s;
+    &:hover {
+      opacity: 0;
+    } */
+  }
 
   .cityName {
     font-size: 40px;
@@ -20,6 +62,9 @@ export const Container = styled.div`
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 30px;
+    z-index: 500;
+    position: relative;
+    animation: ${comeInLeft} 1s forwards;
   }
 
   @media screen and (min-width: 768px) {

@@ -8,8 +8,13 @@ import ForecastArea from "./components/ForecastArea";
 import AppHeader from "./components/AppHeader";
 
 function App() {
-  const { weatherData, forecastData, cityImages, fetchWeatherDataFromCoords } =
-    useContext(LocationContext);
+  const {
+    loading,
+    weatherData,
+    forecastData,
+    cityImages,
+    fetchWeatherDataFromCoords,
+  } = useContext(LocationContext);
   const { height, width } = useWindowDimensions();
 
   useEffect(() => {
@@ -24,10 +29,14 @@ function App() {
       <AppContainer
         bgUrl={cityImages && width < 768 ? cityImages.mobile : null}
       >
-        <AppHeader bgUrl={cityImages && width >= 768 ? cityImages.web : null} />
+        <AppHeader />
 
-        {weatherData && <WeatherInfoCard weatherData={weatherData} />}
-        {forecastData && <ForecastArea forecastData={forecastData} />}
+        {weatherData && !loading && (
+          <WeatherInfoCard weatherData={weatherData} />
+        )}
+        {forecastData && !loading && (
+          <ForecastArea forecastData={forecastData} />
+        )}
         {weatherData && false && (
           <pre>{JSON.stringify(weatherData, null, 4)}</pre>
         )}

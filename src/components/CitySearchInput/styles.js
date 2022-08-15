@@ -4,20 +4,21 @@ export const InputContainer = styled.div`
   margin: 20px;
   width: 90%;
   max-width: 400px;
+  z-index: 999;
 
   .sub-container {
     display: flex;
     align-items: center;
     input {
       width: 90%;
-      padding: 0.7rem 45px 0.7rem 1.3rem;
+      padding: 0.7rem 50px 0.7rem 1.3rem;
       font-size: 1.2rem;
       border: none;
       border-radius: 8px;
     }
 
     .spinner {
-      margin-left: -40px;
+      margin-left: -50px;
     }
   }
 
