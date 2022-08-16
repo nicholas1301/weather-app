@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { BG_COLOR } from "../../styles/AppContainer";
 
 const fadeOut = keyframes`
   0% {
@@ -37,9 +38,9 @@ export const Container = styled.div`
   background-size: cover;
 
   .background-overlay {
-    background: #003;
+    background: ${BG_COLOR};
     border-radius: 15px 15px 0 0;
-    width: 79.3%;
+    width: 100%;
     height: 200px;
     z-index: 100;
     position: absolute;
@@ -61,7 +62,6 @@ export const Container = styled.div`
     backdrop-filter: blur(1px);
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 30px;
     z-index: 500;
     position: relative;
     animation: ${comeInLeft} 1s forwards;

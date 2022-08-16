@@ -5,6 +5,7 @@ export const InputContainer = styled.div`
   width: 90%;
   max-width: 400px;
   z-index: 999;
+  margin-left: 60px;
 
   .sub-container {
     display: flex;

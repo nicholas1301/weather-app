@@ -9,10 +9,12 @@ export function LocationProvider({ children }) {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState(null);
   const [cityImages, setCityImages] = useState(null);
+  const [weatherIconCode, setWeatherIconCode] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const fetchWeatherDataFromCoords = async (position) => {
     setLoading(true);
+    setWeatherIconCode(null);
     try {
       const weatherPromise = weatherApi.get("weather", {
         params: {
@@ -38,6 +40,7 @@ export function LocationProvider({ children }) {
         forecastPromise,
       ]);
       setWeatherData(weatherResponse.data);
+      setWeatherIconCode(weatherResponse.data.weather[0].icon);
       setForecastData(forecastResponse.data.list);
       getLocationImages(weatherResponse.data.name);
     } catch (err) {
@@ -78,6 +81,9 @@ export function LocationProvider({ children }) {
   const fetchWeatherAndImagesFromCityUrl = async (cityUrl) => {
     try {
       setLoading(true);
+      setCityImages(null);
+      setWeatherIconCode(null);
+
       const cityInfoResponse = await axios.get(cityUrl);
       const { latitude, longitude } = cityInfoResponse.data.location.latlon;
       const weatherPromise = weatherApi.get("weather", {
@@ -103,15 +109,13 @@ export function LocationProvider({ children }) {
         forecastPromise,
       ]);
       setWeatherData(weatherResponse.data);
+      setWeatherIconCode(weatherResponse.data.weather[0].icon);
       setForecastData(forecastResponse.data.list);
-
-      setCityImages(null);
 
       if (cityInfoResponse.data._links["city:urban_area"]) {
         const imagesRequestUrl =
           cityInfoResponse.data._links["city:urban_area"].href + "images";
         const imagesResponse = await axios.get(imagesRequestUrl);
-        console.log(imagesResponse);
         setCityImages(imagesResponse.data.photos[0].image);
       } else {
         setCityImages(null);
@@ -129,6 +133,7 @@ export function LocationProvider({ children }) {
         loading,
         setLoading,
         weatherData,
+        weatherIconCode,
         forecastData,
         setWeatherData,
         cityImages,

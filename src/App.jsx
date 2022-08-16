@@ -2,20 +2,12 @@ import { useEffect, useContext } from "react";
 import { GlobalStyle } from "./styles/global";
 import { LocationContext } from "./contexts/LocationContext";
 import { AppContainer } from "./styles/AppContainer";
-import { useWindowDimensions } from "./hooks/useWindowDimension";
-import WeatherInfoCard from "./components/WeatherInfoCard";
-import ForecastArea from "./components/ForecastArea";
 import AppHeader from "./components/AppHeader";
+import AppMain from "./components/AppMain";
 
 function App() {
-  const {
-    loading,
-    weatherData,
-    forecastData,
-    cityImages,
-    fetchWeatherDataFromCoords,
-  } = useContext(LocationContext);
-  const { height, width } = useWindowDimensions();
+  const { weatherData, forecastData, fetchWeatherDataFromCoords } =
+    useContext(LocationContext);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -26,21 +18,16 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <AppContainer
-        bgUrl={cityImages && width < 768 ? cityImages.mobile : null}
-      >
+      <AppContainer>
         <AppHeader />
+        <AppMain />
 
-        {weatherData && !loading && (
-          <WeatherInfoCard weatherData={weatherData} />
-        )}
-        {forecastData && !loading && (
-          <ForecastArea forecastData={forecastData} />
-        )}
         {weatherData && false && (
           <pre>{JSON.stringify(weatherData, null, 4)}</pre>
         )}
-        {forecastData && <pre>{JSON.stringify(forecastData, null, 4)}</pre>}
+        {forecastData && false && (
+          <pre>{JSON.stringify(forecastData, null, 4)}</pre>
+        )}
       </AppContainer>
     </>
   );

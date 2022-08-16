@@ -47,7 +47,7 @@ function CitySearchInput() {
         />
 
         <div className="spinner" style={{ opacity: isLoading ? 1 : 0 }}>
-          <PulseLoader loading={true} size="8px" color="#222" />
+          <PulseLoader loading={true} size="8px" color="#555" />
         </div>
       </div>
       {isFocusOnInput && searchTerm.length > 0 ? (

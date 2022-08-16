@@ -10,7 +10,11 @@ function AppHeader() {
   const { height, width } = useWindowDimensions();
 
   return (
-    <Container bgUrl={cityImages && width >= 768 ? cityImages.web : null}>
+    <Container
+      bgUrl={
+        cityImages ? (width >= 768 ? cityImages.web : cityImages.mobile) : null
+      }
+    >
       {cityImages && <div className="background-overlay"></div>}
       <CitySearchInput />
       {loading && (

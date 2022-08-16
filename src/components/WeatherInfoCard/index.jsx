@@ -1,6 +1,9 @@
+import { useContext } from "react";
+import { LocationContext } from "../../contexts/LocationContext";
 import { Container } from "./styles";
 
-function WeatherInfoCard({ weatherData }) {
+function WeatherInfoCard() {
+  const { weatherData } = useContext(LocationContext);
   return (
     <Container>
       <img

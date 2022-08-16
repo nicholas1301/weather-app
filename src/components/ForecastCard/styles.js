@@ -6,7 +6,7 @@ export const Card = styled.li`
   flex-direction: column;
   align-items: center;
   min-width: 150px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   padding: 10px 0;
   border-radius: 10px;
   background: rgba(56, 56, 56, 0.5);
@@ -23,5 +23,6 @@ export const Card = styled.li`
     font-weight: 400;
     font-size: 1rem;
     text-align: center;
+    margin-bottom: 5px;
   }
 `;

@@ -30,6 +30,7 @@ export const Container = styled.div`
   align-items: center;
   position: relative;
   animation: ${comeInRight} 2s forwards;
+  z-index: 100;
 
   h2 {
     font-size: 40px;

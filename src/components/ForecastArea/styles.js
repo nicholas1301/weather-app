@@ -16,14 +16,15 @@ const dropDown = keyframes`
 `;
 
 export const Container = styled.ul`
-  margin-top: 20px;
+  margin: 20px 0;
   display: flex;
+  z-index: 100;
+
   gap: 10px;
   width: 95%;
   max-width: 700px;
   overflow-x: auto;
   overflow-y: hidden;
-
   animation: ${dropDown} 3s forwards;
 
   &::-webkit-scrollbar {
