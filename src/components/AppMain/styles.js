@@ -68,7 +68,7 @@ export const MainContainer = styled.div`
     background: ${BG_COLOR};
     border-radius: 0 0 15px 15px;
     width: 100%;
-    height: 446px;
+    height: 448px;
     z-index: 50;
     position: absolute;
     animation: ${fadeOut} 5s forwards;
@@ -78,8 +78,17 @@ export const MainContainer = styled.div`
       opacity: 0;
     } */
   }
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 769px) {
     border-radius: ${({ cityHasImages }) =>
       cityHasImages ? "0 0 15px 15px" : "15px"};
+  }
+
+  @media screen and (max-width: 768px) {
+    height: 60vh;
+    /* gap: 7vh; */
+    .background-overlay {
+      height: 60vh;
+      border-radius: 0;
+    }
   }
 `;

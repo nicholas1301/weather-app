@@ -41,9 +41,10 @@ export const Container = styled.div`
     background: ${BG_COLOR};
     border-radius: 15px 15px 0 0;
     width: 100%;
-    height: 200px;
+    height: 203px;
     z-index: 100;
     position: absolute;
+    top: 24px;
     animation: ${fadeOut} 1.5s forwards;
     /* opacity: 1;
     transition: opacity 1s;
@@ -67,7 +68,18 @@ export const Container = styled.div`
     animation: ${comeInLeft} 1s forwards;
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 769px) {
     border-radius: 15px 15px 0 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    height: 40vh;
+    gap: 7vh;
+
+    .background-overlay {
+      height: 40vh;
+      border-radius: 0;
+      top: 0;
+    }
   }
 `;
