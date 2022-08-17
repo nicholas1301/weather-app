@@ -24,7 +24,7 @@ export const Container = styled.div`
   margin-top: 20px;
   padding: 0 20px 20px;
   border-radius: 10px;
-  min-width: 300px;
+  min-width: 260px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,5 +35,15 @@ export const Container = styled.div`
   h2 {
     font-size: 40px;
     font-weight: 400;
+  }
+
+  @media screen and (max-height: 750px) {
+    /* max-height: 20vh; */
+    margin-top: 10px;
+    padding: 0 5px 5px;
+
+    img {
+      margin-top: -20px;
+    }
   }
 `;

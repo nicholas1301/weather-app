@@ -25,4 +25,18 @@ export const Card = styled.li`
     text-align: center;
     margin-bottom: 5px;
   }
+
+  @media screen and (max-height: 750px) {
+    h2 {
+      margin-bottom: 0;
+    }
+
+    img {
+      margin-top: -15px;
+    }
+
+    h3 {
+      margin-top: -15px;
+    }
+  }
 `;
