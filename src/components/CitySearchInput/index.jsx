@@ -3,14 +3,18 @@ import { teleportApi } from "../../services/teleportApi";
 import { InputContainer } from "./styles";
 import { PulseLoader } from "react-spinners";
 import { LocationContext } from "../../contexts/LocationContext";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useRef } from "react";
 
 function CitySearchInput() {
   const { fetchWeatherAndImagesFromCityUrl } = useContext(LocationContext);
+  const inputRef = useRef();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchMatches, setSearchMatches] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFocusOnInput, setIsFocusOnInput] = useState(false);
+  const [isCitySelected, setIsCitySelected] = useState(false);
 
   const changeHandler = async (e) => {
     setSearchTerm(e.target.value);
@@ -24,8 +28,7 @@ function CitySearchInput() {
           url: match._links["city:item"].href,
         };
       });
-      // array of object of type
-      // name: full_name, url:
+
       setSearchMatches(matchesObjs);
       setIsLoading(false);
     } catch (err) {
@@ -39,6 +42,7 @@ function CitySearchInput() {
       <div className="sub-container">
         <input
           type="text"
+          ref={inputRef}
           placeholder="Search for a city..."
           value={searchTerm}
           onChange={changeHandler}
@@ -46,8 +50,24 @@ function CitySearchInput() {
           onBlur={() => setTimeout(() => setIsFocusOnInput(false), 100)}
         />
 
-        <div className="spinner" style={{ opacity: isLoading ? 1 : 0 }}>
-          <PulseLoader loading={true} size="8px" color="#555" />
+        <div className="spinner">
+          {isCitySelected && !isLoading && (
+            <AiOutlineCloseCircle
+              style={{
+                color: "#333",
+                height: "25px",
+                width: "25px",
+                marginLeft: "15px",
+                marginTop: "3px",
+              }}
+              onClick={() => {
+                setSearchTerm("");
+                setIsCitySelected(false);
+                inputRef.current.focus();
+              }}
+            />
+          )}
+          <PulseLoader loading={isLoading} size="8px" color="#555" />
         </div>
       </div>
       {isFocusOnInput && searchTerm.length > 0 ? (
@@ -59,6 +79,7 @@ function CitySearchInput() {
                 key={idx}
                 className="city-option"
                 onClick={() => {
+                  setIsCitySelected(true);
                   setSearchTerm(match.name);
                   fetchWeatherAndImagesFromCityUrl(match.url);
                 }}

@@ -20,6 +20,11 @@ export const InputContainer = styled.div`
 
     .spinner {
       margin-left: -50px;
+
+      p {
+        color: black;
+        margin-left: 25px;
+      }
     }
   }
 
