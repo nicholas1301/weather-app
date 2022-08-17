@@ -36,14 +36,14 @@ export const Container = styled.div`
   background: ${({ bgUrl }) => (bgUrl ? `url(${bgUrl})` : "transparent")};
   background-repeat: no-repeat;
   background-size: cover;
-  z-index: 75;
+  z-index: 850;
 
   .background-overlay {
     background: ${BG_COLOR};
     border-radius: 15px 15px 0 0;
     width: 100%;
     height: 233px;
-    z-index: 100;
+    z-index: 900;
     position: absolute;
     top: calc((100vh - 646px) / 2 + 3px);
     animation: ${fadeOut} 1.5s forwards;

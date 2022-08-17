@@ -29,7 +29,7 @@ export const InputContainer = styled.div`
     width: 80%;
     max-width: 360px;
 
-    max-height: 150px;
+    max-height: 300px;
     overflow-y: auto;
     position: absolute;
     z-index: 1000;

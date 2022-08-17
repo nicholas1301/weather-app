@@ -24,15 +24,16 @@ export const FlipCardContainer = styled.div`
   min-height: 130px;
   height: 150px;
   /* border: 1px solid #f1f1f1; */
-  perspective: 1000px; // Remove this if you don't want the 3D effect
-  z-index: 800;
+  //perspective: 1000px; // Remove this if you don't want the 3D effect
   margin-top: 20px;
   position: relative;
+  z-index: 800;
   animation: ${comeInRight} 2s forwards;
 
   &:hover .flip-card-inner {
     transform: rotateY(180deg);
   }
+
   .flip-card-inner {
     position: relative;
     width: 100%;
@@ -40,6 +41,7 @@ export const FlipCardContainer = styled.div`
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
+    z-index: 800;
 
     .flip-card-front {
       position: absolute;
@@ -47,6 +49,7 @@ export const FlipCardContainer = styled.div`
       height: 100%;
       -webkit-backface-visibility: hidden; /* Safari */
       backface-visibility: hidden;
+      z-index: 800;
 
       background: rgba(56, 56, 56, 0.5);
       backdrop-filter: blur(1px);
@@ -77,6 +80,7 @@ export const FlipCardContainer = styled.div`
       backdrop-filter: blur(1px);
       color: white;
       transform: rotateY(180deg);
+      z-index: 800;
 
       display: flex;
       flex-direction: column;
