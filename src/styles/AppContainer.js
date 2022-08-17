@@ -6,12 +6,12 @@ export const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 646px;
   width: 100%;
 
   @media screen and (min-width: 769px) {
+    min-height: 646px;
     border-radius: 20px;
-    margin: 25px 0;
+    margin: 10px 0 0;
     width: 80%;
     max-width: 1000px;
   }

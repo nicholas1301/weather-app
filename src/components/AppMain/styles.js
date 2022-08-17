@@ -58,6 +58,7 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
   width: 100%;
   background: ${({ weatherIconCode }) =>
     "url(" + bgImages[weatherIconCode] + ")"};
@@ -68,7 +69,7 @@ export const MainContainer = styled.div`
     background: ${BG_COLOR};
     border-radius: 0 0 15px 15px;
     width: 100%;
-    height: 448px;
+    height: 410px;
     z-index: 50;
     position: absolute;
     animation: ${fadeOut} 5s forwards;
@@ -81,13 +82,17 @@ export const MainContainer = styled.div`
   @media screen and (min-width: 769px) {
     border-radius: ${({ cityHasImages }) =>
       cityHasImages ? "0 0 15px 15px" : "15px"};
+
+    .background-overlay {
+      margin-top: 0;
+    }
   }
 
   @media screen and (max-width: 768px) {
-    height: 60vh;
+    height: 65vh;
     /* gap: 7vh; */
     .background-overlay {
-      height: 60vh;
+      height: 65vh;
       border-radius: 0;
     }
   }

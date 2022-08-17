@@ -36,21 +36,31 @@ export const Container = styled.div`
   background: ${({ bgUrl }) => (bgUrl ? `url(${bgUrl})` : "transparent")};
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 75;
 
   .background-overlay {
     background: ${BG_COLOR};
     border-radius: 15px 15px 0 0;
     width: 100%;
-    height: 203px;
+    height: 233px;
     z-index: 100;
     position: absolute;
-    top: 24px;
+    top: calc((100vh - 646px) / 2 + 3px);
     animation: ${fadeOut} 1.5s forwards;
     /* opacity: 1;
     transition: opacity 1s;
     &:hover {
       opacity: 0;
     } */
+  }
+
+  .header-main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .cityName {
@@ -73,13 +83,16 @@ export const Container = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    height: 40vh;
-    gap: 7vh;
+    height: 35vh;
 
     .background-overlay {
-      height: 40vh;
+      height: 36vh;
       border-radius: 0;
       top: 0;
     }
+  }
+
+  @media screen and (max-height: 600px) {
+    /* height: 30vh; */
   }
 `;

@@ -15,19 +15,21 @@ function AppHeader() {
         cityImages ? (width >= 768 ? cityImages.web : cityImages.mobile) : null
       }
     >
-      {cityImages && <div className="background-overlay"></div>}
       <CitySearchInput />
-      {loading && (
-        <FadeLoader
-          cssOverride={{ marginTop: "20px" }}
-          loading={true}
-          // size="20px"
-          color="#fff"
-        />
-      )}
-      {weatherData && !loading && (
-        <h3 className="cityName">{weatherData.name}</h3>
-      )}
+      {cityImages && <div className="background-overlay"></div>}
+      <div className="header-main">
+        {loading && (
+          <FadeLoader
+            cssOverride={{ marginTop: "20px" }}
+            loading={true}
+            // size="20px"
+            color="#fff"
+          />
+        )}
+        {weatherData && !loading && (
+          <h3 className="cityName">{weatherData.name}</h3>
+        )}
+      </div>
     </Container>
   );
 }

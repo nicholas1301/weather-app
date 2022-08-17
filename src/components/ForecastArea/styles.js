@@ -26,6 +26,7 @@ export const Container = styled.ul`
   overflow-x: auto;
   overflow-y: hidden;
   animation: ${dropDown} 3s forwards;
+  list-style: none;
 
   &::-webkit-scrollbar {
     height: 10px;

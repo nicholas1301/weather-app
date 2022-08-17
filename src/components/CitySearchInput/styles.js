@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div`
-  margin: 20px;
+  margin: 20px 20px 0;
   width: 90%;
   max-width: 400px;
   z-index: 999;
@@ -29,7 +29,7 @@ export const InputContainer = styled.div`
     width: 80%;
     max-width: 360px;
 
-    max-height: 300px;
+    max-height: 150px;
     overflow-y: auto;
     position: absolute;
     z-index: 1000;

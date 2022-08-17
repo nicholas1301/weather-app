@@ -6,10 +6,10 @@ import { LocationContext } from "../../contexts/LocationContext";
 function ForecastArea() {
   const { forecastData } = useContext(LocationContext);
   const listRef = useRef();
-  const time = Date.now();
-  const currentTempIndex = forecastData.findIndex(
-    (forecast) => forecast.dt * 1000 > time
-  );
+  // const time = Date.now();
+  // const currentTempIndex = forecastData.findIndex(
+  //   (forecast) => forecast.dt * 1000 > time
+  // );
   // const test = () => {
   //   const MAX_SCROLLLEFT =
   //     listRef.current.scrollWidth - listRef.current.clientWidth;
@@ -25,7 +25,6 @@ function ForecastArea() {
           <ForecastCard
             key={idx}
             forecast={el}
-            isCurrent={currentTempIndex === idx}
             today={today}
             tomorrow={tomorrow}
           />
