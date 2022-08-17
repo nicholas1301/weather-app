@@ -30,7 +30,14 @@ function ForecastCard({ forecast, today, tomorrow }) {
           {/* </Card> */}
         </div>
         <div className="flip-card-back">
-          <h2>Teste</h2>
+          <div className="row">
+            <p>Atmospheric pressure:</p>
+            <p>{forecast.main.pressure}hPa</p>
+          </div>
+          <div className="row">
+            <p>Humidity:</p>
+            <p>{forecast.main.humidity}%</p>
+          </div>
         </div>
       </div>
     </FlipCard>

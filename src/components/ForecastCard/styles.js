@@ -58,6 +58,17 @@ export const FlipCard = styled.li`
       backdrop-filter: blur(1px);
       color: white;
       transform: rotateY(180deg);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+
+      .row {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
     }
   }
 `;

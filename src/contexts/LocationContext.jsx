@@ -39,6 +39,7 @@ export function LocationProvider({ children }) {
         weatherPromise,
         forecastPromise,
       ]);
+      console.log(forecastResponse.data.list[0]);
       setWeatherData(weatherResponse.data);
       setWeatherIconCode(weatherResponse.data.weather[0].icon);
       setForecastData(forecastResponse.data.list);

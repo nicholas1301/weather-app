@@ -19,7 +19,14 @@ function WeatherInfoCard() {
           </div>
         </div>
         <div className="flip-card-back">
-          <h2>Trás</h2>
+          <div className="row">
+            <p>Atmospheric pressure:</p>
+            <p>{weatherData.main.pressure}hPa</p>
+          </div>
+          <div className="row">
+            <p>Humidity:</p>
+            <p>{weatherData.main.humidity}%</p>
+          </div>
         </div>
       </div>
     </FlipCardContainer>

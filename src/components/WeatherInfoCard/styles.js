@@ -77,6 +77,18 @@ export const FlipCardContainer = styled.div`
       backdrop-filter: blur(1px);
       color: white;
       transform: rotateY(180deg);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+      .row {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
     }
   }
 `;
