@@ -30,9 +30,9 @@ function CitySearchInput() {
       });
 
       setSearchMatches(matchesObjs);
-      setIsLoading(false);
     } catch (err) {
       console.log(err);
+    } finally {
       setIsLoading(false);
     }
   };
@@ -64,7 +64,6 @@ function CitySearchInput() {
               onClick={() => {
                 setSearchTerm("");
                 setIsCitySelected(false);
-                inputRef.current.focus();
               }}
             />
           )}
