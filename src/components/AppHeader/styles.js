@@ -73,7 +73,7 @@ export const Container = styled.div`
     backdrop-filter: blur(1px);
     padding: 20px;
     border-radius: 10px;
-    z-index: 500;
+    z-index: 950;
     position: relative;
     animation: ${comeInLeft} 1s forwards;
   }

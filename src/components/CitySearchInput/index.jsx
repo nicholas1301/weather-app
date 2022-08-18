@@ -51,7 +51,7 @@ function CitySearchInput() {
         />
 
         <div className="spinner">
-          {isCitySelected && !isLoading && (
+          {isCitySelected && !isLoading && isFocusOnInput && (
             <AiOutlineCloseCircle
               style={{
                 color: "#333",
@@ -59,6 +59,7 @@ function CitySearchInput() {
                 width: "25px",
                 marginLeft: "15px",
                 marginTop: "3px",
+                cursor: "pointer",
               }}
               onClick={() => {
                 setSearchTerm("");

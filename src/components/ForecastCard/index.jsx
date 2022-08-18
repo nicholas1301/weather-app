@@ -1,5 +1,4 @@
 import { FlipCard } from "./styles";
-import { Card } from "./styles";
 
 function ForecastCard({ forecast, today, tomorrow }) {
   const cardDate = forecast.dt_txt.split(" ")[0].split("-").reverse(); // [dd, mm, yyyy]
