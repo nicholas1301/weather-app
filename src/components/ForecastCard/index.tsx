@@ -1,6 +1,13 @@
 import { FlipCard } from "./styles";
+import { IForecastData } from "../../contexts/LocationContext";
 
-function ForecastCard({ forecast, today, tomorrow }) {
+interface IForecastCardProps {
+  forecast: IForecastData;
+  today: number;
+  tomorrow: number;
+}
+
+function ForecastCard({ forecast, today, tomorrow }: IForecastCardProps) {
   const cardDate = forecast.dt_txt.split(" ")[0].split("-").reverse(); // [dd, mm, yyyy]
 
   const cardTime = forecast.dt_txt.split(" ")[1].slice(0, 2);
@@ -23,7 +30,6 @@ function ForecastCard({ forecast, today, tomorrow }) {
 
           <img
             src={`https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`}
-            alt={forecast.name}
           />
           <h3>{Math.round(forecast.main.temp)}°C</h3>
           {/* </Card> */}

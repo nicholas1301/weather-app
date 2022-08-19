@@ -3,16 +3,84 @@ import axios from "axios";
 import { teleportApi } from "../services/teleportApi";
 import { weatherApi, weatherApiKey } from "../services/weatherApi";
 
-export const LocationContext = createContext({});
+interface IPosition {
+  coords: {
+    latitude: number;
+    longitude: number;
+  };
+}
 
-export function LocationProvider({ children }) {
-  const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState(null);
-  const [cityImages, setCityImages] = useState(null);
-  const [weatherIconCode, setWeatherIconCode] = useState(null);
+interface IWeather {
+  id: string;
+  main: string;
+  description: string;
+  icon: string;
+}
+
+export interface IWeatherData {
+  coord: {
+    lon: number;
+    lat: number;
+  };
+  weather: IWeather[];
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+  };
+  name: string;
+}
+
+export interface IForecastData {
+  weather: IWeather[];
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+  };
+  dt_txt: string;
+}
+
+interface ICityImages {
+  mobile: string;
+  web: string;
+}
+
+interface ILocationContextValues {
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  weatherData: IWeatherData | null;
+  weatherIconCode: string | null;
+  forecastData: IForecastData[] | null;
+  cityImages: ICityImages | null;
+  setCityImages: React.Dispatch<React.SetStateAction<ICityImages | null>>;
+  getLocationImages: (cityName: string) => void;
+  fetchWeatherDataFromCoords: (position: IPosition) => void;
+  fetchWeatherAndImagesFromCityUrl: (cityUrl: string) => void;
+}
+
+export const LocationContext = createContext({} as ILocationContextValues);
+
+interface IProviderProps {
+  children: React.ReactNode;
+}
+
+export function LocationProvider({ children }: IProviderProps) {
+  const [weatherData, setWeatherData] = useState<IWeatherData | null>(null);
+  const [forecastData, setForecastData] = useState<IForecastData[] | null>([]);
+  const [cityImages, setCityImages] = useState<ICityImages | null>(
+    {} as ICityImages
+  );
+  const [weatherIconCode, setWeatherIconCode] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchWeatherDataFromCoords = async (position) => {
+  const fetchWeatherDataFromCoords = async (position: IPosition) => {
     setLoading(true);
     setWeatherIconCode(null);
     try {
@@ -50,7 +118,7 @@ export function LocationProvider({ children }) {
     }
   };
 
-  const getLocationImages = async (cityName) => {
+  const getLocationImages = async (cityName: string) => {
     setLoading(true);
     try {
       setCityImages(null);
@@ -78,7 +146,7 @@ export function LocationProvider({ children }) {
     }
   };
 
-  const fetchWeatherAndImagesFromCityUrl = async (cityUrl) => {
+  const fetchWeatherAndImagesFromCityUrl = async (cityUrl: string) => {
     try {
       setLoading(true);
       setCityImages(null);
@@ -135,7 +203,6 @@ export function LocationProvider({ children }) {
         weatherData,
         weatherIconCode,
         forecastData,
-        setWeatherData,
         cityImages,
         setCityImages,
         getLocationImages,

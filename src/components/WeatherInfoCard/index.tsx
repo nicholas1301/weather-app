@@ -4,6 +4,7 @@ import { FlipCardContainer } from "./styles";
 
 function WeatherInfoCard() {
   const { weatherData } = useContext(LocationContext);
+  if (!weatherData) return null;
   return (
     <FlipCardContainer>
       <div className="flip-card-inner">
@@ -14,7 +15,7 @@ function WeatherInfoCard() {
           />
           <h2>{Math.round(weatherData.main.temp)}°C</h2>
           <div className="min-max">
-            <span>Min: {Math.round(weatherData.main.temp_min)}°C</span> -
+            <span>Min: {Math.round(weatherData?.main.temp_min)}°C</span> -
             <span> Max: {Math.round(weatherData.main.temp_max)}°C</span>
           </div>
         </div>

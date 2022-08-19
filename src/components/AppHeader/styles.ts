@@ -27,13 +27,18 @@ const comeInLeft = keyframes`
   }
 `;
 
+interface IContainerProps {
+  bgUrl: string | null;
+}
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 200px;
-  background: ${({ bgUrl }) => (bgUrl ? `url(${bgUrl})` : "transparent")};
+  background: ${({ bgUrl }: IContainerProps) =>
+    bgUrl ? `url(${bgUrl})` : "transparent"};
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 850;

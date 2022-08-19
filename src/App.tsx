@@ -6,8 +6,7 @@ import AppHeader from "./components/AppHeader";
 import AppMain from "./components/AppMain";
 
 function App() {
-  const { weatherData, forecastData, fetchWeatherDataFromCoords } =
-    useContext(LocationContext);
+  const { fetchWeatherDataFromCoords } = useContext(LocationContext);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -21,13 +20,6 @@ function App() {
       <AppContainer>
         <AppHeader />
         <AppMain />
-
-        {weatherData && false && (
-          <pre>{JSON.stringify(weatherData, null, 4)}</pre>
-        )}
-        {forecastData && false && (
-          <pre>{JSON.stringify(forecastData, null, 4)}</pre>
-        )}
       </AppContainer>
     </>
   );

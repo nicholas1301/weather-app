@@ -6,23 +6,37 @@ import { LocationContext } from "../../contexts/LocationContext";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { useRef } from "react";
 
+interface IMatchResult {
+  matching_full_name: string;
+  _links: {
+    "city:item": {
+      href: string;
+    };
+  };
+}
+
+interface ISearchMatches {
+  name: string;
+  url: string;
+}
+
 function CitySearchInput() {
   const { fetchWeatherAndImagesFromCityUrl } = useContext(LocationContext);
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchMatches, setSearchMatches] = useState([]);
+  const [searchMatches, setSearchMatches] = useState([] as ISearchMatches[]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFocusOnInput, setIsFocusOnInput] = useState(false);
   const [isCitySelected, setIsCitySelected] = useState(false);
 
-  const changeHandler = async (e) => {
+  const changeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     setIsLoading(true);
     try {
       const response = await teleportApi.get(`/cities/?search=${searchTerm}`);
       const matches = response.data._embedded["city:search-results"];
-      const matchesObjs = matches.map((match) => {
+      const matchesObjs = matches.map((match: IMatchResult) => {
         return {
           name: match.matching_full_name,
           url: match._links["city:item"].href,

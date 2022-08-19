@@ -40,6 +40,8 @@ const bgImages = {
   "50n": n50d,
 };
 
+type ObjectKey = keyof typeof bgImages;
+
 const fadeOut = keyframes`
   0% {
     opacity: 1;
@@ -54,14 +56,19 @@ const fadeOut = keyframes`
   }
 `;
 
+interface Props {
+  weatherIconCode: string | null;
+  cityHasImages: boolean;
+}
+
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
-  background: ${({ weatherIconCode }) =>
-    "url(" + bgImages[weatherIconCode] + ")"};
+  background: ${({ weatherIconCode }: Props) =>
+    weatherIconCode && "url(" + bgImages[weatherIconCode as ObjectKey] + ")"};
   background-repeat: no-repeat;
   background-size: cover; //contain
 
@@ -80,7 +87,7 @@ export const MainContainer = styled.div`
     } */
   }
   @media screen and (min-width: 769px) {
-    border-radius: ${({ cityHasImages }) =>
+    border-radius: ${({ cityHasImages }: Props) =>
       cityHasImages ? "0 0 15px 15px" : "15px"};
 
     .background-overlay {
