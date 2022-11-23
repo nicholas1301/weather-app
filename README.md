@@ -8,4 +8,4 @@ The search input has an autocomplete feature to suggest the name of all cities p
 It was implemented from scratch and works by sending new search requests at the endpoint https://developers.teleport.org/api/cities/ for every input event.
 
 The app can be accessed at
-https://weather-app-liart-chi.vercel.app/
+https://weather-app-nicholas1301.vercel.app/
